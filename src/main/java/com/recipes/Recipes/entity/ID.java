@@ -1,17 +1,21 @@
 package com.recipes.Recipes.entity;
 
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
-@Component
+@Data
 public class ID {
+    private Long id;
 
-    private final Recipe recipe;
-
-    public ID(Recipe recipe) {
-        this.recipe = recipe;
+    public ID(Long id) {
+        this.id = id;
     }
 
-    public Long getid() {
-        return this.recipe.getId();
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
+

@@ -5,34 +5,43 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
-@Component
-
-
+@Data
+@Table(name = "test_mv_")
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
     @JsonIgnore
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String description;
 
-    @ElementCollection
-    private List<String> ingredients = new ArrayList<>();
+    @NotBlank
+    private String category;
+    private LocalDateTime date;
 
+    @NotEmpty
     @ElementCollection
-    private List<String> directions = new ArrayList<>();
+    private List<String> ingredients;
+
+    @NotEmpty
+    @ElementCollection
+    private List<String> directions;
+
+    public Recipe() {
+        this.date = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -56,6 +65,22 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public List<String> getIngredients() {
