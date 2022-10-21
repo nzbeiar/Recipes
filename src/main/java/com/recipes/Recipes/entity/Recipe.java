@@ -1,19 +1,19 @@
 package com.recipes.Recipes.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.stereotype.Component;
+import com.recipes.Recipes.security.User;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "test_mv_")
+@Table(name = "recipes")
 public class Recipe {
 
     @Id
@@ -38,6 +38,12 @@ public class Recipe {
     @NotEmpty
     @ElementCollection
     private List<String> directions;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @NonNull
+    private User user;
 
     public Recipe() {
         this.date = LocalDateTime.now();
@@ -97,5 +103,13 @@ public class Recipe {
 
     public void setDirections(List<String> directions) {
         this.directions = directions;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 
     @Query(
-            value = "SELECT * FROM test_mv_ r ORDER BY r.date DESC",
+            value = "SELECT * FROM RECIPES r ORDER BY r.date DESC",
             nativeQuery = true)
     List<Recipe> getRecipesSortedByDate();
 
